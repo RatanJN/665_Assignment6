@@ -42,8 +42,8 @@ public class Main {
     machine.setBeverageStrategy(new Espresso());
 
     // Add condiments to the beverage: 4 units of milk and 3 units of sugar
-    Milk milkStrategy = new Milk();
-    Sugar sugarStrategy = new Sugar();
+    Milk milkStrategy = Milk.getInstance();
+    Sugar sugarStrategy = Sugar.getInstance();
 
     // Loop to add multiple units of milk
     for (int i = 0; i < 4; i++) {

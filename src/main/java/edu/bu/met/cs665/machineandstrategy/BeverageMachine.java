@@ -21,7 +21,9 @@ package edu.bu.met.cs665.machineandstrategy;
 import edu.bu.met.cs665.condiments.CondimentStrategy;
 // Necessary imports for handling lists and condiment strategies
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents the BeverageMachine, responsible for configuring and operating a beverage
@@ -31,12 +33,14 @@ public class BeverageMachine {
   //Uses has a relationship in both the strategy below
   private BeverageStrategy beverageStrategy; // Strategy for brewing beverages
   private List<CondimentStrategy> condimentStrategies; // List of strategies for adding condiments
-
+  private Set<CondimentStrategy> usedCondiments; // To track which condiments were actually used
+  
   /**
      * Constructor for BeverageMachine, initializes the list of condiment strategies.
      */
   public BeverageMachine() {
     this.condimentStrategies = new ArrayList<>(); // Initialize the list of condiments
+    this.usedCondiments = new HashSet<>(); // Initialize the set of used condiments
   }
 
   /**
@@ -45,6 +49,8 @@ public class BeverageMachine {
      * @param beverageStrategy The strategy to be used for brewing the beverage.
      */
   public void setBeverageStrategy(BeverageStrategy beverageStrategy) {
+    // Reset only the used condiments
+    resetCondimentCounts();
     this.beverageStrategy = beverageStrategy; // Assigns the specified brewing strategy
   }
 
@@ -73,7 +79,16 @@ public class BeverageMachine {
     // Add condiments using the added strategies
     for (CondimentStrategy strategy : condimentStrategies) {
       strategy.addCondiment();
+      usedCondiments.add(strategy);
     }
+    
+  }
+  
+  private void resetCondimentCounts() {
+    for (CondimentStrategy strategy : usedCondiments) {
+      strategy.resetCondimentCount(); // Directly call reset on each used condiment
+    }
+    usedCondiments.clear(); // Clear the set after resetting
   }
 
   /**
@@ -92,6 +107,7 @@ public class BeverageMachine {
     for (CondimentStrategy strategy : condimentStrategies) {
       totalCost += strategy.calculateCost() * strategy.getCondimentCount();
     }
+   
     return totalCost; // Return the total cost
   }
 }

@@ -2,16 +2,16 @@
 | CS-665       | Software Design & Patterns |
 |--------------|----------------------------|
 | Name         | Ratan Jagath Naik          |
-| Date         | 02/07/2024                 |
+| Date         | 04/19/2024                 |
 | Course       | Spring 2024                |
-| Assignment # | 1                          |
+| Assignment # | 6                          |
 
 # Assignment Overview
 
 Developed a software application for a fully automated beverage vending machine. The software manages brewing processes for various coffee and tea beverages (Espresso, Americano, Latte Macchiato, Black Tea, Green Tea, Yellow Tea). Users can add milk and sugar, selecting 0 to 3 units each, with a maximum limit of 3 units per condiment. Implementation includes unit tests for functionality, and optionally calculates final beverage prices based on preset base prices ($2 for coffee, $0.50 per condiment).
 
 # GitHub Repository Link:
-https://github.com/RatanJN/665_Assignment1
+https://github.com/RatanJN/665_Assignment6.git
 
 # Implementation Description 
 
@@ -22,21 +22,26 @@ For each assignment, please answer the following:
 be easily added or removed in the future.
 
 
-The implementation showcases high flexibility through the use of interfaces (BeverageStrategy, CondimentStrategy, and PricingStrategy) and abstract classes (Coffee and Tea). This design allows for easy addition or removal of new beverage types (like adding a new Cappuccino class) or condiments (e.g., CinnamonStrategy) without altering the core logic of the BeverageMachine class. New types can simply implement the required interfaces or extend the abstract classes. 
+The implementation showcases significant flexibility through the use of the Strategy and Singleton design patterns, alongside interfaces (BeverageStrategy, CondimentStrategy, and PricingStrategy). This structure allows for easy addition or removal of new beverage types or condiments without altering the core logic of the BeverageMachine class. For instance, introducing a new beverage like Cappuccino or a new condiment such as CinnamonStrategy can be accomplished by simply creating new classes that implement the respective interfaces. This modular approach ensures that extending the system's capabilities can be done with minimal impact on existing functionality. 
+
 - Discuss the simplicity and understandability of your implementation, ensuring that it is
 easy for others to read and maintain.
 
 
-The code is organized into clear, well-defined classes and interfaces, each responsible for a specific aspect of the beverage preparation process. The separation of concerns is evident in the distinction between beverage brewing (BeverageStrategy), pricing (PricingStrategy), and condiments (CondimentStrategy). This not only makes the code easier to read and understand but also simplifies maintenance. New developers can quickly grasp the structure and functionality of the system due to its modular design and the descriptive naming of classes and methods.
+The system's architecture is designed for clarity and ease of maintenance. Each class and interface has a well-defined role, adhering to the principle of single responsibility. For example, beverage preparation is managed by BeverageStrategy, pricing by PricingStrategy, and condiment management by CondimentStrategy. Such clear separation of concerns enhances the understandability of the code, making it straightforward for new developers or contributors to quickly become acquainted with the system's operations. The use of descriptive naming conventions for classes and methods further aids in understanding the intended functionality of each component.
+
 - Describe how you have avoided duplicated code and why it is important.
 
 
-The abstract classes Coffee and Tea reduce code duplication by implementing the brew method, which is common across all coffee and tea variants. Subclasses only need to implement their specific brewing logic (if any) and pricing. Similarly, the CondimentStrategy interface allows for a generalized way to handle different condiments, avoiding the need to write repetitive code for each condiment addition. The use of inheritance and interfaces promotes code reuse and ensures that any changes in the common functionality need to be made in only one place, thus maintaining consistency across the application.
+In this implementation, code duplication is minimized through strategic use of interfaces and abstract classes. The CondimentStrategy interface standardizes the method through which condiments are handled, thereby eliminating the need for repetitive code for each type of condiment. The Singleton pattern employed for Milk and Sugar ensures that there is a single instance of each condiment, with shared behavior defined once and reused across the application. This approach not only promotes code reuse but also ensures consistency and maintainability, as changes to shared behavior need to be implemented just once.
+
 - If applicable, mention any design patterns you have used and explain why they were
 chosen.
 
 
-For the design pattern aspect of the implementation, the Strategy Pattern is prominently used. This pattern is applied to define a set of interchangeable algorithms or strategies that can be switched at runtime. In this context, the `BeverageStrategy` for brewing different types of beverages and the `CondimentStrategy` for adding various condiments are examples of these interchangeable algorithms. The `BeverageMachine` class acts as the context, allowing the specific strategy (beverage type and condiments) to be set at runtime, thereby enabling the machine to prepare different kinds of drinks according to the strategies chosen. This use of the Strategy Pattern greatly enhances the flexibility of the system, allowing for easy extension and modification of beverage and condiment types without altering the core logic of the beverage preparation process.
+The Strategy Pattern plays a crucial role in this project, enabling the dynamic selection of algorithms at runtime. The BeverageStrategy and CondimentStrategy interfaces allow different beverages and condiments to be treated as interchangeable algorithms. The BeverageMachine acts as the context, seamlessly switching between these strategies based on runtime decisions. Additionally, the Singleton Pattern is utilized for condiment classes like Milk and Sugar, ensuring a single, globally accessible instance of each, which is essential for managing state effectively across multiple drink preparations. These patterns were chosen to enhance flexibility, reduce duplication, and maintain consistent state management, critical aspects for a scalable and robust beverage preparation system.
+
+These revised answers reflect the advanced structure and thoughtful design patterns implemented in your project, emphasizing the enhanced flexibility, simplicity, and strategic use of design patterns to optimize code efficiency and maintainability.
 
 
 # Maven Commands

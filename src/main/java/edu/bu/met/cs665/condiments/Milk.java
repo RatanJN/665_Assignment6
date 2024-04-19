@@ -3,9 +3,9 @@
  * Course: CS-665 Software Design & Patterns
  * Date: 02/07/2024
  * File Name: Milk.java
- * Description: The Milk class is a concrete implementation of the CondimentStrategy interface,
- * designed to add milk to beverages within a flexible beverage preparation system. It controls
- * the process of milk addition, tracking the amount added and enforcing a cap to ensure
+ * Description: The Milk class is a concrete SingleTon implementation of the CondimentStrategy 
+ * interface,designed to add milk to beverages within a flexible beverage preparation system.
+ * It controls the process of milk addition, tracking the amount added and enforcing a cap to ensure
  * appropriate condiment proportions. This class illustrates the application of the Strategy
  * Pattern to condiment management, allowing for dynamic customization of beverages with varying
  * milk volumes. Implementing the CondimentStrategy interface enables the Milk class to seamlessly
@@ -22,7 +22,23 @@ package edu.bu.met.cs665.condiments;
  */
 public class Milk implements CondimentStrategy {
 
+  private static Milk instance; // Singleton Object reference of Milk Condement
   private int condimentCount; // Holds the count of milk units added
+  
+  //This doesn't allow a object of this class to created using default constructor
+  private Milk() {}
+  
+
+  
+  /**
+   * Returns the singleton object of this Class whenever required.
+   */
+  public static synchronized Milk getInstance() {
+    if (instance == null) {
+      instance = new Milk();
+    }
+    return instance;
+  }
 
   /**
      * Adds a unit of milk to the beverage, respecting a predefined maximum limit.
@@ -57,6 +73,15 @@ public class Milk implements CondimentStrategy {
   @Override
   public double calculateCost() {
     return 0.50; // Cost per unit of milk
+  }
+  
+  /**
+     * Reset the condiment value to zero after each beverage is made.
+     *
+     */
+  @Override
+  public void resetCondimentCount() {
+    condimentCount = 0;
   }
 
 }

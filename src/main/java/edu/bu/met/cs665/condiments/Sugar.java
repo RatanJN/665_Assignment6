@@ -1,5 +1,5 @@
 /**
- * Name: Ratan JagathNaik
+ * Name: Ratan Jagath Naik
  * Course: CS-665 Software Design & Patterns
  * Date: 02/07/2024
  * File Name: Sugar.java
@@ -18,10 +18,31 @@
 package edu.bu.met.cs665.condiments;
 
 /**
- * Sugar condiment class that implements the CondimentStrategy for adding sugar to beverages.
+ * Sugar condiment Singleton class that implements the CondimentStrategy for adding sugar to
+ * beverages.
  */
 public class Sugar implements CondimentStrategy {
+  
+  private static Sugar instance; // The single instance of Sugar
   private int condimentCount; // Tracks the number of sugar units added
+  
+  /**
+   * Private constructor to prevent instantiation from outside the class.
+   */
+  private Sugar() {}
+
+  /**
+   * Returns the single instance of Sugar. Creates it if it doesn't exist.
+   *
+   * @return Sugar - the single instance of Sugar.
+   */
+  public static synchronized Sugar getInstance() {
+    if (instance == null) {
+      instance = new Sugar();
+    }
+    return instance;
+  }
+  
 
   /**
      * Adds a unit of sugar to the beverage, up to a maximum limit.
@@ -57,5 +78,14 @@ public class Sugar implements CondimentStrategy {
   @Override
   public double calculateCost() {
     return 0.25; // Fixed cost per unit of sugar
+  }
+  
+  /**
+   * Reset the condiment value to zero after each beverage is made.
+   *
+   */
+  @Override
+  public void resetCondimentCount() {
+    condimentCount = 0;
   }
 }

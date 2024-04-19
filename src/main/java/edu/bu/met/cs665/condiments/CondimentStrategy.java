@@ -39,4 +39,9 @@ public interface CondimentStrategy extends PricingStrategy {
      * @return int - The count of the condiment added.
      */
   int getCondimentCount();
+  
+  /**
+   * Added to support resetting within the machine class.
+   */
+  void resetCondimentCount();
 }
